@@ -45,7 +45,7 @@ update f x p q h r z =
 
 -- TODO FFI?
 inverse :: Matrix a -> Matrix a
-inverse = foreignImport "inverse" undefined
+inverse = undefined -- foreignImport "inverse" undefined
 
 
 -- TODO use a type patch instead?
