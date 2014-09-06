@@ -15,6 +15,14 @@ build-type:          Simple
 -- extra-source-files:  
 cabal-version:       >=1.10
 
+executable             feld-compile
+
+  main-is:             FT/Main.hs
+  build-depends:       base >=4.7 && <4.8,
+                       feldspar-language,
+                       feldspar-compiler,
+                       syntactic
+
 library
   exposed-modules:     FT.Kalman
   -- other-modules:       

@@ -9,6 +9,8 @@ import Feldspar.Matrix as M
 
 import Feldspar.Core.Frontend.FFI as FFI
 
+import Feldspar.Compiler.Backend.C.Options as O
+
 -- (***) =  mulMat
 
 -- f : model,
@@ -47,8 +49,23 @@ update f x p q h r z =
 inverse :: Matrix a -> Matrix a
 inverse = undefined -- foreignImport "inverse" undefined
 
-
 -- TODO use a type patch instead?
 predictF :: Matrix Float -> Matrix Float -> Matrix Float -> Matrix Float
          -> (Matrix Float, Matrix Float)
 predictF = predict 
+
+
+test2 :: Vector1 Float -> Vector1 Float
+test2 x = zipWith (*) x x
+
+test3 x y = zipWith (+) (test2 x) (test2 y)
+
+
+un = undefined
+
+chk t = icompile' options "foo" t
+  where
+    options = C.defaultOptions
+      { memoryInfoVisible = True
+      -- , printHeader = True
+    }
