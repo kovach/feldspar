@@ -1,0 +1,23 @@
+* installation
+this assumes emacs usage (there may be a vim mode?)
+
+http://wiki.portal.chalmers.se/agda/pmwiki.php?n=Main.InstallationOfAgdaFromSourceForNonprogrammers
+steps:
+ - cabal install agda
+ - agda-mode setup
+ - git clone https://github.com/agda/agda-stdlib.git
+   - see setting up the Emacs mode:
+     http://wiki.portal.chalmers.se/agda/pmwiki.php?n=Libraries.StandardLibrary
+ - install haskell-mode
+ - look at keybindings under agda-mode notes below
+
+* strange things
+open import Data.Nat -- Needed for numeric literals to work
+* agda-notes
+http://wiki.portal.chalmers.se/agda/pmwiki.php?n=ReferenceManual.TOC
+http://www.cse.chalmers.se/~ulfn/papers/afp08/tutorial.pdf
+http://www.cse.chalmers.se/~peterd/papers/DependentTypesAtWork.pdf
+* agda-mode notes
+http://wiki.portal.chalmers.se/agda/pmwiki.php?n=Main.QuickGuideToEditingTypeCheckingAndCompilingAgdaCode
+http://wiki.portal.chalmers.se/agda/pmwiki.php?n=Docs.EmacsModeKeyCombinations
+http://wiki.portal.chalmers.se/agda/pmwiki.php?n=Docs.UnicodeInput

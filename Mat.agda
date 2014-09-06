@@ -1,6 +1,7 @@
 module Mat where
 
 open import Data.Nat
+open import Data.Bool
 
 data Vec (A : Set) : ℕ -> Set where
   [] : Vec A zero
@@ -18,7 +19,7 @@ data Mat : ℕ → ℕ → Set where
   _++_ : {k m : ℕ} → Mat k m → Mat k m → Mat k m
   diag : (n : ℕ) → Mat n n
   inv  : {n : ℕ} → Mat n n → Mat n n
-  _ᵀ  : {k m : ℕ} → Mat k m → Mat m k
+  _ᵀ   : {k m : ℕ} → Mat k m → Mat m k
 
 t1 = 
  let row12 = (unit || unit) 
@@ -44,4 +45,3 @@ predict f x p q =
       p' = f × q × f ᵀ ++ q
   in
    (x' , p')
-
