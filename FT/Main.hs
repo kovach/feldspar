@@ -9,4 +9,4 @@ import Feldspar.Matrix as M
 import FT.Amb_kf as K
 import FT.Util as U
 
-main = U.chk K.assign_de_mtx "assign_de_mtx"
+main = U.chk K.assign_de_mtx_3 "assign_de_mtx"

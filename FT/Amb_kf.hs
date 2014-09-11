@@ -5,16 +5,19 @@ import Feldspar as F
 import Feldspar.Vector
 import Feldspar.Matrix as M
 
+import Feldspar.Compiler as C
+
 import FT.Util
+import FT.Tests
 
 -- -------------------------- --
 -- Fully copied from amb_kf.c --
 -- -------------------------- --
-assign_de_mtx :: Matrix Float -> Vector1 Float -> Matrix Float
-assign_de_mtx sats_with_ref_first ref_ecef =
+assign_de_mtx :: Data WordN -> Vector2 Float -> Vector1 Float -> Matrix Float
+assign_de_mtx num_sats sats_with_ref_first ref_ecef =
   let
-    sats = sats_with_ref_first
-    num_sats = length sats
+    -- Assert that there will be at least 1 sat
+    sats = newLen (notBelow 1 num_sats) sats_with_ref_first
 
     delta0 = force $
              diff (sats ! 0) ref_ecef
@@ -30,6 +33,14 @@ assign_de_mtx sats_with_ref_first ref_ecef =
                 diff (map (/ norm) delta) e0
   in
     de
+
+-- Specialize to 3d vectors
+-- Use `map' to change width of matrix (second argument)
+assign_de_mtx_3 =
+  assign_de_mtx -:: id               -- num _sats
+                >-> (map (newLen 3)) -- sats_list
+                >-> newLen 3         -- ref
+                >-> id               -- output
 
 -- TODO finish
 residual_obs_cov :: Data WordN -> Matrix Int32

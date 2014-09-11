@@ -13,7 +13,5 @@ testm2 b c = b *** c
 testm3 :: Matrix Float -> Matrix Float -> Matrix Float -> Matrix Float
 testm3 a b c = a *** b *** c
 
--- TODO 'between' doesn't do anything?
 sum3 :: Vector1 Int32 -> Data Int32
-sum3 = sum -:: (between 3 3 |> between 0 0) >-> id
-
+sum3 = sum -:: newLen 3 >-> id

@@ -20,8 +20,11 @@ repeat :: Type a => Data Length -> Vector1 a -> Matrix a
 repeat rows v = indexedMat rows (length v) (\i j -> v ! j)
 
 -- Compiler convenience
-chk t name = icompile' options name t
+chk t name = do
+  print . unroll $ options
+  icompile' options name t
   where
     options = C.defaultOptions
-      -- { memoryInfoVisible = True -- TODO doesn't do anything?
-      -- , unroll = Unroll 8 }
+      { memoryInfoVisible = True -- TODO doesn't do anything?
+      , unroll = Unroll 8 }
+chk' t = chk t "foo"
