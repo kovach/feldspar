@@ -24,7 +24,9 @@ executable             feld-compile
                        syntactic
 
 library
-  exposed-modules:     FT.Kalman
+  exposed-modules:     FT.Amb_kf
+                       FT.Kalman
+                       FT.Tests
   -- other-modules:       
   -- other-extensions:    
   build-depends:       base >=4.7 && <4.8,

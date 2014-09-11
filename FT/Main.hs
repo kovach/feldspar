@@ -1,13 +1,12 @@
 module Main where
 
-
 import qualified Prelude
 import Feldspar as F
-import Feldspar.Vector hiding ((**))
+import Feldspar.Vector
 import Feldspar.Compiler as C
-import Feldspar.Compiler.Plugin as CP
 import Feldspar.Matrix as M
 
-import FT.Kalman
+import FT.Amb_kf as K
+import FT.Util as U
 
-main = icompile predictF
+main = U.chk K.assign_de_mtx "assign_de_mtx"

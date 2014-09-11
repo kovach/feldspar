@@ -2,16 +2,13 @@ module FT.Kalman where
 
 import qualified Prelude
 import Feldspar as F
-import Feldspar.Vector hiding ((**))
-import Feldspar.Compiler as C
-import Feldspar.Compiler.Plugin as CP
+import Feldspar.Vector
 import Feldspar.Matrix as M
-
 import Feldspar.Core.Frontend.FFI as FFI
 
-import Feldspar.Compiler.Backend.C.Options as O
-
--- (***) =  mulMat
+-- -- --
+-- KF --
+-- -- --
 
 -- f : model,
 -- x : state estimate,
@@ -38,34 +35,24 @@ update f x p q h r z =
     -- HPH^ + R
     residual = z .- h *** x'
     residual_covariance = h *** p' *** (transpose h) .+ r
-    kalman_gain = p' *** (transpose h) *** (inverse residual_covariance)
+
+    -- TODO use FFI (see below)
+    inverse' = transpose
+
+    kalman_gain = p' *** (transpose h) *** (inverse' residual_covariance)
+
 
     x'' = x' .+ (kalman_gain *** residual)
     p'' = p' .- (kalman_gain *** h *** p')
   in
     (x'', p'')
 
--- TODO FFI?
+-- TODO FFI. How to generate Denotation?
 inverse :: Matrix a -> Matrix a
 inverse = undefined -- foreignImport "inverse" undefined
 
 -- TODO use a type patch instead?
 predictF :: Matrix Float -> Matrix Float -> Matrix Float -> Matrix Float
          -> (Matrix Float, Matrix Float)
-predictF = predict 
+predictF = predict
 
-
-test2 :: Vector1 Float -> Vector1 Float
-test2 x = zipWith (*) x x
-
-test3 x y = zipWith (+) (test2 x) (test2 y)
-
-
-un = undefined
-
-chk t = icompile' options "foo" t
-  where
-    options = C.defaultOptions
-      { memoryInfoVisible = True
-      -- , printHeader = True
-    }
