@@ -19,6 +19,9 @@ dist v1 v2 = sumSq $ diff v1 v2
 repeat :: Type a => Data Length -> Vector1 a -> Matrix a
 repeat rows v = indexedMat rows (length v) (\i j -> v ! j)
 
+slice :: Data Length -> Data Length -> Vector1 a -> Vector1 a
+slice i1 i2 = take (i2 - i1) . drop i1
+
 -- Compiler convenience
 chk t name = do
   print . unroll $ options
